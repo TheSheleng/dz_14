@@ -3,29 +3,28 @@
 
 #include <iostream>
 
+using namespace std;
+
 int main()
 {
-	//Matrix<int> obj1(3, 5);
-	//obj1.Random();
-	//obj1.Print();
-	//cout << "\n---------------------------------------\n";
-	//Matrix<int> b;
-	//b = obj1;
-	//b.Print();
-
-	/// 
-
-	Matrix<int> a(5, 5);
+	Matrix<Point> a(5, 5);
 	a.Random();
-	a.Print();
+	//a.Print();
 
 	cout << a << endl;
 
-	//Matrix<Point> sum = a + 3;
-	//Matrix<Point> sum2 = 3 + a;
+	Matrix<Point> sum = a + 3;
 
-	//if (sum > sum2)
-	//{
-	//	cout << "sum> sum2\n";
-	//}
+	cout << endl << endl;
+	cout << sum << endl;
+
+	Matrix<Point> sum2 = 3 + sum;
+
+	cout << endl << endl;
+	cout << sum2 << endl;
+
+	if (sum > sum2)
+	{
+		cout << "sum > sum2\n";
+	}
 }

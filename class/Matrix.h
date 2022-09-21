@@ -1,5 +1,4 @@
 #pragma once
-
 #include<iostream>
 
 using namespace std;
@@ -21,8 +20,14 @@ public:
 	//-----
 	void Random();
 	void Print();
-
-	friend ostream& operator<< (ostream& out, const Matrix& mat);
+	//-----
+	int getStr() const;
+	int getStolb() const;
+	T** getMas() const;
+	//-----
+	Matrix<T> operator+(int i);
+	bool operator>(Matrix<T> obj);
+	bool operator<(Matrix<T> obj);
 };
 
 template<class T>
@@ -129,9 +134,75 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& obj)
 	return *this;
 }
 
-ostream& operator<<(ostream& out, const Matrix& mat)
+template<class T>
+int Matrix<T>::getStr() const
 {
-	out << mat;
+	return str;
+}
+
+template<class T>
+int Matrix<T>::getStolb() const
+{
+	return stolb;
+}
+
+template<class T>
+T** Matrix<T>::getMas() const
+{
+	return mas;
+}
+
+template<class T>
+Matrix<T> Matrix<T>::operator+(int i)
+{
+	Matrix<T> temp = *this;
+
+	for (int x = 0; x < temp.getStr(); x++)
+		for (int y = 0; y < temp.getStolb(); y++)
+			temp.getMas()[x][y] += i;
+
+	return temp;
+}
+
+template<class T>
+bool Matrix<T>::operator>(Matrix<T> obj)
+{
+	for (int i = 0; i < obj.getStr(); i++)
+		for (int j = 0; j < obj.getStolb(); j++)
+			if (!(this->getMas()[i][j] > obj.getMas()[i][j]))
+				return false;
+
+	return true;
+}
+
+template<class T>
+inline bool Matrix<T>::operator<(Matrix<T> obj)
+{
+	for (int i = 0; i < obj.getStr(); i++)
+		for (int j = 0; j < obj.getStolb(); j++)
+			if (!(this->getMas()[i][j] < obj.getMas()[i][j]))
+				return false;
+
+	return true;
+}
+
+template<class T>
+ostream& operator<< (ostream& out, const Matrix<T>& obj)
+{
+	for (int i = 0; i < obj.getStr(); i++)
+	{
+		for (int j = 0; j < obj.getStolb(); j++)
+			out << obj.getMas()[i][j] << "\t";
+
+		out << endl << endl;
+	}
 
 	return out;
+}
+
+template<class T>
+Matrix<T> operator+ (int i, Matrix<T> obj)
+{
+	Matrix<T> temp = obj + i;
+	return temp;
 }
